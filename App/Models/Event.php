@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Event extends Model{
     protected $table='event';
+    protected $primaryKey='event_id';
     protected $fillable=[
         'location',
         'title',
@@ -30,13 +31,14 @@ class Event extends Model{
         'revenue',
         'start_day',
         'end_day',
-        'start-hour',
+        'start_hour',
         'end_hour',
-        'event_id',
     'ticket_id',
     'organizer_id',
     'admin_id'];
-    protected $primaryKey='event_id';
+    public $timestamps = false;
+    public $incrementing = true;
+   /*
     public function ticket(){
         return $this->belongsTo(ticket::class,'ticket_id');
     }
@@ -46,4 +48,5 @@ class Event extends Model{
     public function admin(){
         return $this->belongsTo(admin::class,'admin_id');
     }
+ */
  }

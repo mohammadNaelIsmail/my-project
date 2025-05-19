@@ -8,3 +8,9 @@ Route::get('/', function () {
 Route::get('/ping', function () {
     return response()->json(['message' => 'pong']);
 });
+Route::get('/events', function () {
+    return view('events');
+});
+Route::get('/humans', function () {
+    return view('humans');
+});

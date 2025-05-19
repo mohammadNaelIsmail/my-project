@@ -46,10 +46,24 @@ class EventController extends Controller
      * )
      */
     public function index(Request $request)
-    {
-        $events = Event::paginate(10);
-        return response()->json($events, 200);
+{
+    $search = $request->input('search');
+    $perPage = $request->input('per_page', 10); 
+
+    $query = Event::query();
+
+    if ($search) {
+        $query->where(function($q) use ($search) {
+            $q->where('title', 'like', "%{$search}%")
+              ->orWhere('description', 'like', "%{$search}%");
+        });
     }
+
+    $events = $query->paginate($perPage);
+
+    return response()->json($events, 200);
+}
+
 
     /**
      * @OA\Post(
@@ -89,9 +103,7 @@ class EventController extends Controller
             'end_day' => 'required|date|after_or_equal:start_day',
             'start_hour' => 'required|string',
             'end_hour' => 'required|string',
-            'ticket_id' => 'required|exists:tickets,ticket_id',
-            'organizer_id' => 'required|exists:organizers,organizer_id',
-            'admin_id' => 'required|exists:admins,admin_id',
+
         ]);
 
         if ($validator->fails()) {
@@ -180,9 +192,9 @@ class EventController extends Controller
             'end_day' => 'sometimes|date|after_or_equal:start_day',
             'start_hour' => 'sometimes|string',
             'end_hour' => 'sometimes|string',
-            'ticket_id' => 'sometimes|exists:tickets,ticket_id',
-            'organizer_id' => 'sometimes|exists:organizers,organizer_id',
-            'admin_id' => 'sometimes|exists:admins,admin_id',
+            'ticket_id' => 'nullable|exists:tickets,ticket_id',
+            'organizer_id' => 'nullable|exists:organizers,organizer_id',
+            'admin_id' => 'nullable|exists:admins,admin_id',
         ]);
 
         if ($validator->fails()) {

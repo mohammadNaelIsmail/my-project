@@ -1,0 +1,559 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "My API Documentation",
+        "description": "This is the API documentation for my Laravel project.",
+        "contact": {
+            "email": "youremail@example.com"
+        },
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/events": {
+            "get": {
+                "tags": [
+                    "Events"
+                ],
+                "summary": "Get list of events with pagination",
+                "operationId": "7058ab7c89d20c752b6afd6d808f6526",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page number",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Event"
+                                            }
+                                        },
+                                        "current_page": {
+                                            "type": "integer"
+                                        },
+                                        "last_page": {
+                                            "type": "integer"
+                                        },
+                                        "per_page": {
+                                            "type": "integer"
+                                        },
+                                        "total": {
+                                            "type": "integer"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Events"
+                ],
+                "summary": "Create a new event",
+                "operationId": "508895e03d7f10edac84357084c87b20",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Event"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Event created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Event"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/events/{id}": {
+            "get": {
+                "tags": [
+                    "Events"
+                ],
+                "summary": "Get an event by ID",
+                "operationId": "6f743f71f7a88dbe57be1d9c9ebf47cb",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Event ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Event found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Event"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Event not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Events"
+                ],
+                "summary": "Update an event",
+                "operationId": "fb130dcf1ab4d7abbd3a173741df1f8f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Event ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Event"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Event updated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Event"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Event not found"
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Events"
+                ],
+                "summary": "Delete an event",
+                "operationId": "b8c8f4b41a32532f5e9f7146e511bc61",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Event ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Event deleted"
+                    },
+                    "404": {
+                        "description": "Event not found"
+                    }
+                }
+            }
+        },
+        "/api/humans": {
+            "get": {
+                "tags": [
+                    "Humans"
+                ],
+                "summary": "Get list of humans with pagination",
+                "operationId": "1641d04c38e4c33c5b0f717c738c74e7",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page number",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Human"
+                                            }
+                                        },
+                                        "current_page": {
+                                            "type": "integer"
+                                        },
+                                        "last_page": {
+                                            "type": "integer"
+                                        },
+                                        "per_page": {
+                                            "type": "integer"
+                                        },
+                                        "total": {
+                                            "type": "integer"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Humans"
+                ],
+                "summary": "Create a new human",
+                "operationId": "a55464f846e43f0dc15cf0af35752436",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Human"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Human created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Human"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/humans/{id}": {
+            "get": {
+                "tags": [
+                    "Humans"
+                ],
+                "summary": "Get a human by ID",
+                "operationId": "ed99faefb165377f2aceddb7cf833085",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Human ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Human found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Human"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Human not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Humans"
+                ],
+                "summary": "Update a human",
+                "operationId": "394a5d94d947eff576a2c1b1e33f78bd",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Human ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Human"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Human updated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Human"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Human not found"
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Humans"
+                ],
+                "summary": "Delete a human",
+                "operationId": "3f5836c7ba020d2df455411a674e5cdd",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Human ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Human deleted"
+                    },
+                    "404": {
+                        "description": "Human not found"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Event": {
+                "title": "Event Model",
+                "required": [
+                    "event_id",
+                    "title",
+                    "date",
+                    "location"
+                ],
+                "properties": {
+                    "event_id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "title": {
+                        "type": "string",
+                        "example": "Music Festival"
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "An outdoor music festival.",
+                        "nullable": true
+                    },
+                    "date": {
+                        "type": "string",
+                        "format": "date",
+                        "example": "2025-06-01"
+                    },
+                    "location": {
+                        "type": "string",
+                        "example": "Central Park"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "Human": {
+                "title": "Human Model",
+                "required": [
+                    "human_id",
+                    "age",
+                    "name",
+                    "password",
+                    "email"
+                ],
+                "properties": {
+                    "human_id": {
+                        "type": "integer",
+                        "example": 123
+                    },
+                    "age": {
+                        "type": "integer",
+                        "example": 30
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "John Doe"
+                    },
+                    "password": {
+                        "type": "string",
+                        "example": "$2y$12$..."
+                    },
+                    "location": {
+                        "type": "string",
+                        "example": "New York",
+                        "nullable": true
+                    },
+                    "email": {
+                        "type": "string",
+                        "format": "email",
+                        "example": "john@example.com"
+                    },
+                    "creditcard": {
+                        "type": "string",
+                        "example": "1234-5678-9012-3456",
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Events",
+            "description": "API Endpoints for Events"
+        },
+        {
+            "name": "Humans",
+            "description": "API Endpoints for Humans"
+        }
+    ]
+}
